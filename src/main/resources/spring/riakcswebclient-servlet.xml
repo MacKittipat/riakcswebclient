@@ -15,6 +15,11 @@
     <!-- Component scan -->
     <context:component-scan base-package="com.mac.riakcswebclient.webapp.controller" />
 
+    <!-- Interceptors -->
+    <mvc:interceptors>
+        <bean class="com.mac.riakcswebclient.webapp.interceptor.DefaultInterceptor" />
+    </mvc:interceptors>
+
     <!-- View -->
     <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
         <property name="prefix">
