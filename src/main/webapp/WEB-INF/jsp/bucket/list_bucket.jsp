@@ -8,7 +8,7 @@
 <div>
     <c:forEach items="${bucketList}" var="bucket">
         <div>
-            <a href="<spring:url value='/bucket/${bucket.name}' />">
+            <a href="<spring:url value='/bucket/info/${bucket.name}' />">
                 ${bucket.name}
             </a>
             &nbsp;
