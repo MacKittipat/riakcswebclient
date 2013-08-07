@@ -20,6 +20,9 @@
         <bean class="com.mac.riakcswebclient.webapp.interceptor.DefaultInterceptor" />
     </mvc:interceptors>
 
+    <!-- Assets -->
+    <mvc:resources mapping="/assets/**" location="/assets/" />
+
     <!-- View -->
     <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
         <property name="prefix">
