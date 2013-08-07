@@ -3,6 +3,8 @@ package com.mac.riakcswebclient.webapp.controller;
 import com.amazonaws.services.s3.AmazonS3Client;
 import com.amazonaws.services.s3.model.Bucket;
 import com.amazonaws.services.s3.model.ObjectListing;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,8 +20,10 @@ import java.util.List;
 @RequestMapping(value = "bucket")
 public class BucketController {
 
+    private static final Logger log = LoggerFactory.getLogger(BucketController.class);
+
     @Autowired
-    AmazonS3Client amazonS3Client;
+    private AmazonS3Client amazonS3Client;
 
     /**
      * List all bucket.
@@ -57,6 +61,7 @@ public class BucketController {
 
     @RequestMapping(value = "delete/{bucketName}")
     public String delete(@PathVariable String bucketName) {
+        log.info("Deleting bucket {}", bucketName);
         amazonS3Client.deleteBucket(bucketName);
         return "redirect:/bucket";
     }

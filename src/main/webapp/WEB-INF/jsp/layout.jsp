@@ -4,7 +4,7 @@
 <html>
     <head>
         <title>Riak CS Web Client</title>
-        <link rel="stylesheet" type="text/css" href="<spring:url value="/assets/css/pure/pure-min.css" />" />
+        <link rel="stylesheet" type="text/css" href="<spring:url value='/assets/css/pure/pure-min.css' />" />
     </head>
     <body>
         <jsp:include page="${pageContent}.jsp" />
