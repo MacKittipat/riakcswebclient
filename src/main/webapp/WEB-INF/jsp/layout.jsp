@@ -5,8 +5,20 @@
     <head>
         <title>Riak CS Web Client</title>
         <link rel="stylesheet" type="text/css" href="<spring:url value='/assets/css/pure/pure-min.css' />" />
+        <link rel="stylesheet" type="text/css" href="<spring:url value='/assets/css/style.css' />" />
     </head>
     <body>
-        <jsp:include page="${pageContent}.jsp" />
+        <div id="wrap">
+            <div id="header" class="pure-g-r">
+                <h1 class="pure-u-1">
+                    <a href="<spring:url value="/" />">
+                        Riak CS Web Client
+                    </a>
+                </h1>
+            </div>
+            <div id="content" class="pure-g-r">
+                <jsp:include page="${pageContent}.jsp" />
+            </div>
+        </div>
     </body>
 </html>
