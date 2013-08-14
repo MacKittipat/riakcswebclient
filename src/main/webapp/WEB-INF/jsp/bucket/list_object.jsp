@@ -5,7 +5,7 @@
     <c:forEach items="${objectSummaries}" var="object">
         <div>
             ${object.key}
-            <a href="<spring:url value='/object/delete/${object.bucketName}/${object.key}' />">
+            <a href="<spring:url value='/object/delete/${bucketName}/${object.key}' />">
                 Delete
             </a>
         </div>

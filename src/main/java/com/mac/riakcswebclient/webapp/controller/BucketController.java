@@ -3,6 +3,7 @@ package com.mac.riakcswebclient.webapp.controller;
 import com.amazonaws.services.s3.AmazonS3Client;
 import com.amazonaws.services.s3.model.Bucket;
 import com.amazonaws.services.s3.model.ObjectListing;
+import com.amazonaws.services.s3.model.S3ObjectSummary;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,6 +43,7 @@ public class BucketController {
     @RequestMapping(value = "info/{bucketName}")
     public String listObject(@PathVariable String bucketName, Model model) {
         ObjectListing objectListing = amazonS3Client.listObjects(bucketName);
+        model.addAttribute("bucketName", bucketName);
         model.addAttribute("objectSummaries", objectListing.getObjectSummaries());
         model.addAttribute("pageContent", "bucket/list_object");
         return "layout";
@@ -62,6 +64,13 @@ public class BucketController {
     @RequestMapping(value = "delete/{bucketName}")
     public String delete(@PathVariable String bucketName) {
         log.info("Deleting bucket {}", bucketName);
+        // Delete all object in bucket.
+        ObjectListing objectListing = amazonS3Client.listObjects(bucketName);
+        for(S3ObjectSummary s3ObjectSummary : objectListing.getObjectSummaries()) {
+            log.info("Deleting key {}", s3ObjectSummary.getKey());
+            amazonS3Client.deleteObject(bucketName, s3ObjectSummary.getKey());
+        }
+        // Delete bucket.
         amazonS3Client.deleteBucket(bucketName);
         return "redirect:/bucket";
     }
