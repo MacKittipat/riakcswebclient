@@ -10,4 +10,10 @@
             </a>
         </div>
     </c:forEach>
+    <div>
+
+        <a href="<spring:url value='/bucket/info/${bucketName}?marker=${objectSummaries[lastObjectIndex].key}' />">
+            Next
+        </a>
+    </div>
 </div>

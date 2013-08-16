@@ -2,6 +2,7 @@ package com.mac.riakcswebclient.webapp.controller;
 
 import com.amazonaws.services.s3.AmazonS3Client;
 import com.amazonaws.services.s3.model.Bucket;
+import com.amazonaws.services.s3.model.ListObjectsRequest;
 import com.amazonaws.services.s3.model.ObjectListing;
 import com.amazonaws.services.s3.model.S3ObjectSummary;
 import org.slf4j.Logger;
@@ -41,8 +42,16 @@ public class BucketController {
      * List all object in bucket.
      */
     @RequestMapping(value = "info/{bucketName}")
-    public String listObject(@PathVariable String bucketName, Model model) {
-        ObjectListing objectListing = amazonS3Client.listObjects(bucketName);
+    public String listObject(@PathVariable String bucketName, Model model, HttpServletRequest request) {
+        int limit = 100;
+        ListObjectsRequest listObjectsRequest = new ListObjectsRequest();
+        listObjectsRequest.setBucketName(bucketName);
+        listObjectsRequest.setMaxKeys(limit);
+        if(request.getParameter("marker") != null || !"".equals(request.getParameter("marker"))) {
+            listObjectsRequest.setMarker(request.getParameter("marker"));
+        }
+        ObjectListing objectListing = amazonS3Client.listObjects(listObjectsRequest);
+        model.addAttribute("lastObjectIndex", limit-1);
         model.addAttribute("bucketName", bucketName);
         model.addAttribute("objectSummaries", objectListing.getObjectSummaries());
         model.addAttribute("pageContent", "bucket/list_object");
